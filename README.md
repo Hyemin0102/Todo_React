@@ -59,7 +59,8 @@ const onToggle = useCallback((id)=>{
 예시라서 리스트가 간단하지만 만약 이 리스트가 1000개가 넘어가면 어떻게 될까? 를 고민하다 리스트가 많을 시 렌더링 성능을 어떻게 최적화 할 수 있을지 공부하였다.
 
 우선 리스트를 임의로 2500개 렌더링되도록 함수 추가 후 할 일 체크하는데 성능을 측정해보니 500ms 정도의 시간이 소요되었다.
-<img src="https://github.com/Hyemin0102/Todo_React/assets/128768462/c19ed081-e02d-4610-9d27-6d4651a7eeea" width="70%">
+<p><img src="https://github.com/Hyemin0102/Todo_React/assets/128768462/c19ed081-e02d-4610-9d27-6d4651a7eeea" width="70%"></p>
+
 ### React.memo
 462ms 로 살짝 줄어듦
 ```javascript
@@ -73,7 +74,7 @@ const onRemove=useCallback((id)=>{
   setTodos(todos => todos.filter(todo=>todo.id !== id));
 },[])
 ```
-<img src="https://github.com/Hyemin0102/Todo_React/assets/128768462/93846d0a-67d6-4b16-8d77-c719a48842bb" width="70%">
+<p><img src="https://github.com/Hyemin0102/Todo_React/assets/128768462/93846d0a-67d6-4b16-8d77-c719a48842bb" width="70%"></p>
 렌더링 소요 시간이 18ms로 훨씬 많이 줄어든 것을 확인 할 수 있었다!!
 
 ### 2. useReducer
@@ -130,7 +131,7 @@ const TodoList = ({todos, onRemove,onToggle}) => {
 };
 ```
 이렇게 스크롤 아이템까지 관리해주면 최종 렌더링 속도가 7ms 로 처음보다 엄청나게 확 줄어든 것을 확인할 수 있었다!!
-<img src="https://github.com/Hyemin0102/Todo_React/assets/128768462/eecd43fd-1e8e-480b-b66a-b19a17fc9838" width="70%">
+<p><img src="https://github.com/Hyemin0102/Todo_React/assets/128768462/eecd43fd-1e8e-480b-b66a-b19a17fc9838" width="70%"></p>
 
 
 ## 😊프로젝트를 마치며
