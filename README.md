@@ -55,17 +55,18 @@ const onToggle = useCallback((id)=>{
     )
   },[todos])
 ```
-## 문제점 & 해결
+## 🙄문제점 & 해결
 예시라서 리스트가 간단하지만 만약 이 리스트가 1000개가 넘어가면 어떻게 될까? 를 고민하다 리스트가 많을 시 렌더링 성능을 어떻게 최적화 할 수 있을지 공부하였다.
 
 우선 리스트를 임의로 2500개 렌더링되도록 함수 추가 후 할 일 체크하는데 성능을 측정해보니 500ms 정도의 시간이 소요되었다.
 <img src="https://github.com/Hyemin0102/Todo_React/assets/128768462/c19ed081-e02d-4610-9d27-6d4651a7eeea" width="70%">
-### React.memo 사용 - 462ms 로 살짝 줄어듦
+### React.memo
+462ms 로 살짝 줄어듦
 ```javascript
 export default React.memo(TodoListItem);
 ```
-그러나 이 페이지는 todos 배열 업데이트시마다 onToggle, onRemove 같은 함수가 렌더링되기때문에 이 함수들의 성능을 최적화 시켜주어야한다. 
-### 첫번째 방법 - useState 함수형 업데이트
+그러나 이 페이지는 todos 배열 업데이트시마다 onToggle, onRemove 같은 함수가 렌더링되기때문에 이 함수들의 성능을 최적화 시켜주어야한다. 그러기 위해 두가지 방법이 있는데,  
+### 1. useState 함수형 업데이트
 setTodos 함수 업데이트 시 새로운 값을 파라미터처럼 넣는게 아니라 함수형으로 넣어줌 
 ```javascript
 const onRemove=useCallback((id)=>{
@@ -75,7 +76,7 @@ const onRemove=useCallback((id)=>{
 <img src="https://github.com/Hyemin0102/Todo_React/assets/128768462/93846d0a-67d6-4b16-8d77-c719a48842bb" width="70%">
 렌더링 소요 시간이 18ms로 훨씬 많이 줄어든 것을 확인 할 수 있었다!!
 
-### 두번째 방법 - useReducer
+### 2. useReducer
 useReducer를 사용하면 코드를 많이 수정해야하긴 하지만 한 눈에 모아서 보기도 편하고 관리하기도 편한 것 같다. 최종 성능 확인 결과는 useState를 함수형 업데이트하는 것과 거의 동일했다. 
 ```javascript
 function todoReducer(todos, action){
